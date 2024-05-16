@@ -207,7 +207,7 @@ En este punto, luego de identificar la plataforma, se procede a ejecutar toda la
 
 1. **Identificar Plataforma para Enviar Mensaje:** Este nodo determina que la plataforma seleccionada para enviar el mensaje es Telegram, y por lo tanto, activa el flujo correspondiente.
 
-2. **Telegram:** Representa la integración con la API de Telegram. Aquí se configura el envío de un mensaje a través de Telegram, el cual contiene información sobre la vacante crítica que coincide con el grupo analizado previamente.
+2. **Telegram:** Representa la integración con la API de Telegram. Aquí se configura el envío de un mensaje a través de Telegram, el cual contiene información sobre la vacante crítica que coincide con el grupo analizado previamente. Esta integracion con la API de Telegram esta desarrollada en FastAPI en donde se desarrollo un codigo que permite conectarse con esta y otro plataforma pasada como parametro en el endpoint . Esta recibira los parametros respectivos de la plataforma, en este caso Telegram y hara el respectivo envio de los mensajes.
 
 3. **Combinar Información:** En este nodo se fusiona la información proveniente de dos entradas diferentes. En este caso, se combina la información del mensaje enviado a Telegram con otros datos relevantes del proceso, como detalles del grupo o de la vacante crítica.
 
@@ -220,7 +220,7 @@ Este proceso permite notificar de manera automatizada a los destinatarios corres
 Esta parte del flujo se visualiza en el siguiente segmento del proceso:
 
 <div align = "center">
-<img src = "https://i.imgur.com/LRmrAKZ.png"/> 
+<img src = "https://i.imgur.com/CZB5Wle.png"/> 
 </div>
 
 ### Enviar notificacion de vacantes enviadas
@@ -296,6 +296,18 @@ Algunos puntos clave a destacar:
 <div align = "center">
 <img src = "https://i.imgur.com/kvSFkjR.png"/> 
 </div>
+
+Es importante considerar que las vacantes se envían a las plataformas respectivas a través de la API que estas plataformas proporcionan. Aunque n8n ofrece algunas integraciones predeterminadas con estas plataformas, en ocasiones su configuración es limitada. Por esta razón, se decidió establecer conexiones y utilizar estas plataformas mediante código desarrollado en FastAPI.
+
+Este código funciona recibiendo como parámetro la plataforma a la que se desea enviar en el endpoint:
+
+```JSON
+  https://automation-employability-groups.onrender.com/send_message/{platform}
+```
+
+Cuando se accede a este endpoint, mediante inversión de dependencias, se identifica la plataforma y se ejecuta el servicio correspondiente a ella para enviar los parámetros recibidos.
+
+Por lo tanto, en el código desarrollado, si se desea agregar más plataformas, simplemente se agrega el servicio correspondiente a esa plataforma.
 
 5. Integraciones preexistentes: n8n ofrece una amplia gama de integraciones listas para usar con diversos servicios y plataformas. Esto facilita la creación de flujos de trabajo para nuevas plataformas, aprovechando las integraciones ya disponibles y evitando tener que desarrollar desde cero.
 
