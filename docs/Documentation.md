@@ -307,7 +307,37 @@ Este código funciona recibiendo como parámetro la plataforma a la que se desea
 
 Cuando se accede a este endpoint, mediante inversión de dependencias, se identifica la plataforma y se ejecuta el servicio correspondiente a ella para enviar los parámetros recibidos.
 
-Por lo tanto, en el código desarrollado, si se desea agregar más plataformas, simplemente se agrega el servicio correspondiente a esa plataforma.
+Por lo tanto, en el código desarrollado, si se desea agregar más plataformas, simplemente se agrega el servicio correspondiente a esa plataforma. Esto se logra añadiendo una clase que representa el servicio : 
+
+```
+  class PlatformXService(MessageService):
+    """A class that provides methods for sending messages via Platform X."""
+
+    async def send_message(self, params: Telegram):
+        try:
+            # Logic to send message
+        except Exception as e:
+            raise e
+```
+
+De igual manera, toca definir un modelo que represente los datos pertinentes para hacer la conexion con el la API de la plataforma : 
+
+```
+class PlatformX(MessageParams):
+    """
+    Represents a PlatformX object.
+
+    # List of attributes ...
+```
+
+Finalmente, en el archivo main , se debe de agregar que puede recibir parametros de este nuevo servicio : 
+
+```
+@app.post("/send_message/{platform}")
+async def send_message_endpoint(platform: str, params: Union[Model1, Model2, ...], service: MessageService = Depends(service_registry.get_message_service)):
+```
+
+Con esto , queda totalmente integrado el nuevo servicio .
 
 5. Integraciones preexistentes: n8n ofrece una amplia gama de integraciones listas para usar con diversos servicios y plataformas. Esto facilita la creación de flujos de trabajo para nuevas plataformas, aprovechando las integraciones ya disponibles y evitando tener que desarrollar desde cero.
 
