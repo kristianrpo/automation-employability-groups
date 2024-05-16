@@ -344,6 +344,12 @@ Con esto , queda totalmente integrado el nuevo servicio .
 Este enfoque modular y escalable permite a la organización adaptarse rápidamente a nuevos requisitos o canales de notificación. Simplemente se agregan los nuevos grupos a la base de datos centralizada y se crea el flujo de trabajo correspondiente para la nueva plataforma, aprovechando la infraestructura existente.
 Además, al centralizar la información de los grupos en un archivo de Excel, se simplifica la gestión y el mantenimiento de los datos, lo que facilita la incorporación de nuevos grupos o la modificación de los existentes sin afectar el flujo de trabajo principal.
 
+Finalmente, asi quedaria representada esta solucion propuesta mediante el siguiente diagrama que abstrae todo lo anterior explicado : 
+
+<div align = "center">
+<img src = "https://i.imgur.com/NgzKjnp.png"/> 
+</div>
+
 <p align="right">(<a href="#readme-top">Volver arriba</a>)</p>
 
 

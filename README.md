@@ -103,4 +103,9 @@ Posteriormente, el flujo de n8n se encargará de procesar dicha vacante y segun 
 El endpoint de FASTAPI recibe los datos, y hace el uso de las diferentes APIS de las diferentes plataformas para hacer el envío de la vacante al grupo correcto.
 
 ## Autores
-El proyecto fué realizado por Kristian Restrepo Osorio, Luisa María Álvarez García, Miguel Ángel Martínez García y Sebastian Restrepo Ortiz.
+El proyecto fué realizado por : 
+
+- Kristian Restrepo Osorio
+- Sebastian Restrepo Ortiz
+- Luisa María Álvarez García
+- Miguel Ángel Martínez García 
