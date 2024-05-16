@@ -1,25 +1,23 @@
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
-from telethon.sync import TelegramClient
-from telethon.sessions import StringSession
+from fastapi import FastAPI, HTTPException, Depends
+from app.models.message_params import MessageParams
+from app.services.message_service import MessageService
+from app.services.service_registry import ServiceRegistry
+from app.services.telegram_service import TelegramService
+from fastapi import Depends, FastAPI, HTTPException
+from typing import Dict
 
 app = FastAPI()
 
-class TelegramParams(BaseModel):
-    api_id: int
-    api_hash: str
-    entity: str
-    sessionstring: str
-    msg: str
+service_registry = ServiceRegistry()
 
-@app.post("/send_message_telegram/")
-async def send_telegram_message(params: TelegramParams):
+@app.on_event("startup")
+async def on_startup_event():
+    service_registry.register_service("telegram", TelegramService())
+
+@app.post("/send_message/{platform}")
+async def send_message_endpoint(platform: str, params: MessageParams, service: MessageService = Depends(service_registry.get_service)):
     try:
-        client = TelegramClient(StringSession(params.sessionstring), params.api_id, params.api_hash)
-        await client.start()
-        chat = await client.get_entity(params.entity)
-        await client.send_message(chat, params.msg)
-        await client.disconnect()
-        return [{"result": {"sender_chat":{"title":chat.title}}}]
+        result = await service.send_message(params)
+        return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
