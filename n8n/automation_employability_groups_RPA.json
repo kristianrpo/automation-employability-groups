@@ -1,0 +1,660 @@
+{
+  "name": "automation-employability-groups",
+  "nodes": [
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "597bf290-4e4c-4e22-bdd1-14e71f8ee9fb",
+              "leftValue": "={{ $('Split SectorIDs').item.json.sectorID }}",
+              "rightValue": "={{ $('For each vacancy').item.json.sector_id }}",
+              "operator": {
+                "type": "array",
+                "operation": "contains",
+                "rightType": "any"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "0804d306-ce7d-41a2-8130-be6c5eb57e1b",
+      "name": "Check IDs",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        2120,
+        760
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "table",
+        "operation": "getRows",
+        "workbook": {
+          "__rl": true,
+          "value": "01PBMJOCTPDHRPI3WO6VE2P3UDJDMRFSRM",
+          "mode": "list",
+          "cachedResultName": "Excel con grupos de empleabilidad TELEGRAM",
+          "cachedResultUrl": "https://eafit-my.sharepoint.com/personal/krestrepoo_eafit_edu_co/_layouts/15/Doc.aspx?sourcedoc=%7BF4E2196F-CE6E-49F5-A7EE-8348D912CA2C%7D&file=Excel%20con%20grupos%20de%20empleabilidad%20TELEGRAM.xlsx&action=default&mobileredirect=true&DefaultItemOpen=1"
+        },
+        "worksheet": {
+          "__rl": true,
+          "value": "{00000000-0001-0000-0000-000000000000}",
+          "mode": "list",
+          "cachedResultName": "Hoja1",
+          "cachedResultUrl": "https://eafit-my.sharepoint.com/personal/krestrepoo_eafit_edu_co/_layouts/15/Doc.aspx?sourcedoc=%7BF4E2196F-CE6E-49F5-A7EE-8348D912CA2C%7D&file=Excel%20con%20grupos%20de%20empleabilidad%20TELEGRAM.xlsx&action=default&mobileredirect=true&DefaultItemOpen=1&activeCell=Hoja1!A1"
+        },
+        "table": {
+          "__rl": true,
+          "value": "{785FE61F-5C72-4450-83BE-8EFF47ADC62A}",
+          "mode": "list",
+          "cachedResultName": "Tabla1",
+          "cachedResultUrl": "https://eafit-my.sharepoint.com/personal/krestrepoo_eafit_edu_co/_layouts/15/Doc.aspx?sourcedoc=%7BF4E2196F-CE6E-49F5-A7EE-8348D912CA2C%7D&file=Excel%20con%20grupos%20de%20empleabilidad%20TELEGRAM.xlsx&action=default&mobileredirect=true&DefaultItemOpen=1&activeCell=Hoja1!A1:E10"
+        },
+        "filters": {}
+      },
+      "id": "8aa36594-e088-46e1-8ae7-fbca68b4eba4",
+      "name": "Database",
+      "type": "n8n-nodes-base.microsoftExcel",
+      "typeVersion": 2.1,
+      "position": [
+        840,
+        720
+      ],
+      "credentials": {
+        "microsoftExcelOAuth2Api": {
+          "id": "1hiGeeUswndo9AQw",
+          "name": "Microsoft Excel account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "options": {
+          "reset": false
+        }
+      },
+      "id": "d49d19c0-1033-462e-b4f4-a105ba9cacd5",
+      "name": "For each group",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1120,
+        720
+      ],
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "options": {
+          "reset": "={{ $node['For each vacancy'].context[\"done\"] }}"
+        }
+      },
+      "id": "b2a182dd-9cc6-488c-b8e4-26018c65a7a5",
+      "name": "For each vacancy",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1800,
+        740
+      ],
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst editFields = $(\"Obtain Body JSON\").first();\n$vars.SendedVacancies = [];\nreturn editFields.json.body;\n\n"
+      },
+      "id": "4e2d4257-61da-4ec1-a91f-acad81ebf6f0",
+      "name": "Clean Body JSON",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1560,
+        740
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6291cfe1-b429-47d2-b9ef-cb1028197d89",
+              "name": "body",
+              "value": "={{$json.body}}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "cd0c745b-2fc3-4330-974e-ff35df1b486a",
+      "name": "Obtain Body JSON",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [
+        580,
+        720
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {},
+      "id": "edd926c3-5c87-47e9-960d-8c4a2fb9f4ce",
+      "name": "Merge Information",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [
+        3100,
+        940
+      ]
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "data_telegram",
+        "options": {}
+      },
+      "id": "54bc8cb5-94ab-4cd4-8f29-b1cc2c62a905",
+      "name": "List Telegram Response And Vacancie",
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        3360,
+        1020
+      ]
+    },
+    {
+      "parameters": {
+        "toRecipients": "krestrepoo@eafit.edu.co",
+        "subject": "TELEGRAM - SISTEMA DE GESTIÓN DE GRUPOS DE EMPLEABILIDAD ",
+        "bodyContent": "=Se envió de manera exitosa las siguiente vacantes laborales:\n\n{{$json.elements_telegram.flatMap(element => { return  \"Plataforma a la que se envió: \" + element.data_telegram[0].platform + \"\\n\" + \"Grupo al que se envió la vacante: \" + element.data_telegram[1].result.sender_chat.title + \"\\n\" + \"Titulo de la vacante: \" + element.data_telegram[0].job_title + \"\\n\" + \"Link de la vacante: \" + element.data_telegram[0].job_link }).join(\"\\n\\n\")}}\n",
+        "additionalFields": {}
+      },
+      "id": "77f7f751-afa2-47b6-a1ca-6692e21c6b3e",
+      "name": "Send Notify",
+      "type": "n8n-nodes-base.microsoftOutlook",
+      "typeVersion": 2,
+      "position": [
+        2100,
+        100
+      ],
+      "credentials": {
+        "microsoftOutlookOAuth2Api": {
+          "id": "zrgfosM4Z9ftLeti",
+          "name": "Microsoft Outlook account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "for (const item of $input.all()) {\n  let fieldToSplit = item.json.sectorID.split(\",\")\n  \n  item.json.sectorID = fieldToSplit\n}\n\nreturn $input.all();\n"
+      },
+      "id": "1ad651e0-7086-4bc9-b174-b2316ba6831a",
+      "name": "Split SectorIDs",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1340,
+        740
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "d47da232-5729-463a-a02d-c3f821e05b7f",
+              "leftValue": "={{ $('For each group').item.json.platform }}",
+              "rightValue": "={{ $('For each vacancy').item.json.platform }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "e441d20b-723d-47a9-b928-a359becfb3ad",
+      "name": "Check Platform",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        2380,
+        760
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('For each vacancy').item.json.platform }}",
+                    "rightValue": "Whatsapp",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Whatsapp"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "8eb5e15c-b252-4384-8e56-724c3041e6fb",
+                    "leftValue": "={{ $('For each vacancy').item.json.platform }}",
+                    "rightValue": "Telegram",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Telegram"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "2dc140f6-6c94-4553-8fd1-cb3cff2014dc",
+      "name": "Identify Platform To Send Message",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        2640,
+        740
+      ]
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "elements_telegram",
+        "options": {}
+      },
+      "id": "406ea130-b44b-4b93-b09e-720bc8d4e514",
+      "name": "List Telegram Information",
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        1740,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://automation-employability-groups.onrender.com/send_message/telegram",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "api_id_telegram",
+              "value": "={{ $vars.api_id }}"
+            },
+            {
+              "name": "api_hash_telegram",
+              "value": "={{$vars.api_hash}}"
+            },
+            {
+              "name": "entity_telegram",
+              "value": "={{ $('For each group').item.json.token }}"
+            },
+            {
+              "name": "sessionstring_telegram",
+              "value": ""
+            },
+            {
+              "name": "msg",
+              "value": "=💻 {{ $('For each vacancy').item.json.job_title }}\n📍  {{ $('For each vacancy').item.json.location }}\n\nRequisitos:\n🔹 {{ $('For each vacancy').item.json.requirements.join('\\n\\n🔹 ')}}\n\n💼 Enlace a la vacante: {{ $('For each vacancy').item.json.job_link }}\n\n💰 {{ $('For each vacancy').item.json.salary }}\n🕐 Experiencia requerida: {{ $('For each vacancy').item.json.required_experience }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "4441acae-83f1-4470-a16f-f0d8e53de4b9",
+      "name": "Request Telegram API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2780,
+        960
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('For each group').item.json.data_telegram }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "exists",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Telegram"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose"
+                },
+                "conditions": [
+                  {
+                    "id": "a19b1c66-e2db-4665-b116-001deaeb5392",
+                    "leftValue": "={{ $('For each group').item.json.data_whatsapp }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "exists",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Whatsapp"
+            }
+          ]
+        },
+        "options": {
+          "looseTypeValidation": true
+        }
+      },
+      "id": "163598e4-72fd-49e9-9621-d44e8d4459ca",
+      "name": "Identify Platform to Send Notification",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        1500,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "cd115249-188d-40bf-8f58-66efd1eb671a",
+        "options": {}
+      },
+      "id": "26dc7e8d-a234-43dc-b424-8c96c5e21b3f",
+      "name": "Endpoint",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        280,
+        720
+      ],
+      "webhookId": "cd115249-188d-40bf-8f58-66efd1eb671a"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Check IDs": {
+      "main": [
+        [
+          {
+            "node": "Check Platform",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "For each vacancy",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "For each group": {
+      "main": [
+        [
+          {
+            "node": "Identify Platform to Send Notification",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Split SectorIDs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Database": {
+      "main": [
+        [
+          {
+            "node": "For each group",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "For each vacancy": {
+      "main": [
+        [
+          {
+            "node": "For each group",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Check IDs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Clean Body JSON": {
+      "main": [
+        [
+          {
+            "node": "For each vacancy",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Obtain Body JSON": {
+      "main": [
+        [
+          {
+            "node": "Database",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Information": {
+      "main": [
+        [
+          {
+            "node": "List Telegram Response And Vacancie",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List Telegram Response And Vacancie": {
+      "main": [
+        [
+          {
+            "node": "For each vacancy",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split SectorIDs": {
+      "main": [
+        [
+          {
+            "node": "Clean Body JSON",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Platform": {
+      "main": [
+        [
+          {
+            "node": "Identify Platform To Send Message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "For each vacancy",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Identify Platform To Send Message": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Merge Information",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Request Telegram API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List Telegram Information": {
+      "main": [
+        [
+          {
+            "node": "Send Notify",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Request Telegram API": {
+      "main": [
+        [
+          {
+            "node": "Merge Information",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Identify Platform to Send Notification": {
+      "main": [
+        [
+          {
+            "node": "List Telegram Information",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Endpoint": {
+      "main": [
+        [
+          {
+            "node": "Obtain Body JSON",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "SOXEQOnUdcM9KCNS"
+  },
+  "versionId": "6fb05f40-90d7-436b-a2aa-4883fef25430",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "91c46a94ab9c4bf95a129514135c123e9cd6c35b956ef8429886c26ff9009eed"
+  },
+  "id": "52q8oGUTc8epa5wm",
+  "tags": []
+}
