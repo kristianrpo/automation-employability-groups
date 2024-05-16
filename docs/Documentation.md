@@ -207,7 +207,7 @@ En este punto, luego de identificar la plataforma, se procede a ejecutar toda la
 
 1. **Identificar Plataforma para Enviar Mensaje:** Este nodo determina que la plataforma seleccionada para enviar el mensaje es Telegram, y por lo tanto, activa el flujo correspondiente.
 
-2. **Telegram:** Representa la integración con la API de Telegram. Aquí se configura el envío de un mensaje a través de Telegram, el cual contiene información sobre la vacante crítica que coincide con el grupo analizado previamente. Para esta integracion , se consume el un endpoint desarrollado en FastApi el cual hace la conexion con la API de Telegram , y hace el envio de las vacantes. Luego, este endpoint retorna un JSON con la informacion del envio.
+2. **Telegram:** Representa la integración con la API de Telegram. Aquí se configura el envío de un mensaje a través de Telegram, el cual contiene información sobre la vacante crítica que coincide con el grupo analizado previamente.
 
 3. **Combinar Información:** En este nodo se fusiona la información proveniente de dos entradas diferentes. En este caso, se combina la información del mensaje enviado a Telegram con otros datos relevantes del proceso, como detalles del grupo o de la vacante crítica.
 
@@ -220,7 +220,7 @@ Este proceso permite notificar de manera automatizada a los destinatarios corres
 Esta parte del flujo se visualiza en el siguiente segmento del proceso:
 
 <div align = "center">
-<img src = "https://i.imgur.com/CZB5Wle.png"/> 
+<img src = "https://i.imgur.com/LRmrAKZ.png"/> 
 </div>
 
 ### Enviar notificacion de vacantes enviadas
