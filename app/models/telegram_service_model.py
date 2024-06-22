@@ -1,8 +1,8 @@
-from app.models.message_params import MessageParams
+from .service_model import ServiceModel
 
-class Telegram(MessageParams):
+class TelegramModel(ServiceModel):
     """
-    Represents a Telegram object.
+    Represents a Telegram model.
 
     Attributes:
         api_id_telegram (int): The API ID for Telegram.
