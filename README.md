@@ -3,64 +3,60 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="https://static.magneto365.com/lib/assets/cef805bdf449b93b.svg" alt="Logo" style = "background-color:white" width = "400px">
-  </a>
-
-  <h3 align="center">SISTEMA DE GESTIÓN DE GRUPOS DE EMPLEABILIDAD</h3>
-  <p>SISTEMAS DE INFORMACIÓN</p>
+  <h3 align="center">Automation Employability Groups</h3>
+  <p>Systems Information</p>
 </div>
 
 
 <!-- TABLE OF CONTENTS -->
 <details>
-  <summary>Tabla de contenidos</summary>
+  <summary>Table of Contents</summary>
   <ol>
-    <li><a href="#sobre-el-proyecto">Sobre el proyecto</a></li>
-    <li><a href="#herramientas-con-las-que-se-desarrolló">Herramientas con las que se desarrolló</a></li>
-    <li><a href="#instalación">Instalación</a></li>
-    <li><a href="#uso">Uso</a></li>
-    <li><a href="#autores">Autores</a></li>
-    <li><a href="#reconocimientos">Reconocimientos</a></li>
+    <li><a href="#about-the-project">About the Project</a></li>
+    <li><a href="#tools-used-in-development">Tools Used in Development</a></li>
+    <li><a href="#installation">Installation</a></li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#authors">Authors</a></li>
   </ol>
 </details>
 
 
-## Sobre el proyecto
-### Problemática
 
-El problema identificado en este proceso radica principalmente en la cantidad significativa de actividades manuales requeridas por parte de [Magneto](https://www.magneto365.com/es) en el envio de vacantes laborales a grupos de empleabilidad en distintas plataformas . La clasificación de vacantes debe realizarse manualmente debido a errores en el sistema, lo que conlleva un porcentaje de vacantes mal clasificadas o no geográficamente asignadas correctamente. Además, se necesita una verificación manual para evitar la duplicación de publicaciones en los grupos de WhatsApp. A esto se suma la creación manual de mensajes, gráficos y UTM para las publicaciones y el envio de todo lo mencionado anteriormente a los grupos en las distintas plataformas.
+## About the Project
+### Problem
 
-El proceso actual, que depende en gran medida de la intervención humana, no permite una gestión eficiente de los grupos de empleo. Por lo tanto, hemos identificado la necesidad de automatizar la clasificación de vacantes según el sector productivo y su asignación a los grupos de empleo correspondientes, asegurando la diversidad del contenido y evitando repeticiones. Además, el uso exclusivo de WhatsApp como plataforma de difusión limita el alcance a personas que utilizan otras herramientas en su vida diaria.
+The issue identified in this process mainly lies in the significant amount of manual activities required by [Magneto](https://www.magneto365.com/es) to send job vacancies to employability groups on various platforms. Job vacancy classification must be done manually due to system errors, resulting in a percentage of vacancies being misclassified or incorrectly geographically assigned. Additionally, manual verification is needed to avoid duplicate posts in WhatsApp groups. Furthermore, there is a manual process for creating messages, graphics, and UTM links for the posts and sending all of this to the groups on different platforms.
 
-### Solución
-En el proyecto de automatización de grupos de empleabilidad, a través de la plataforma n8n, se logró automatizar el envío y clasificación de vacantes laborales a grupos de empleabilidad en Telegram. Esto permitió a Magneto, como organización, alcanzar a 9,276 personas adicionales en ciudades como Barranquilla, Bogotá, Cartagena, Santa Marta, Medellín e Ibagué, a través de mensajes llamativos que captan la atención de las personas para aplicar a oportunidades laborales. Anteriormente, esta información no llegaba a esta cantidad de personas debido a que Magneto no utilizaba Telegram para compartir vacantes laborales.
+The current process, which heavily relies on human intervention, does not allow for efficient management of employment groups. Therefore, we identified the need to automate the classification of job vacancies according to the productive sector and their assignment to the corresponding employability groups, ensuring content diversity and avoiding repetitions. Additionally, the exclusive use of WhatsApp as the dissemination platform limits reach to individuals who use other tools in their daily lives.
 
-Además, se priorizó la escalabilidad en el flujo, lo que permite utilizarlo en el futuro para enviar vacantes laborales a otras plataformas, como WhatsApp, entre otros. De esta manera, Magneto puede enviar un conjunto de vacantes críticas al flujo creado, el cual se encargará de clasificarlas y enviarlas a la plataforma correspondiente según el sector especificado y los grupos asociados al mismo. Esto elimina la necesidad de que las personas realicen esta acción manualmente, ahorrando tiempo y recursos.
+### Solution
 
-También se implementó en el sistema la gestión de notificaciones sobre los envíos de vacantes laborales mencionados anteriormente, para así, mantener informado al administrador sobre envíos exitosos y con fallos, siendo esto funcional y escalable para las distintas plataformas que se planeen implementar en un futuro.
+In the employability group automation project, through the n8n platform, the automation of job vacancy sending and classification to employability groups on Telegram was achieved. This allowed Magneto, as an organization, to reach an additional 9,276 people in cities such as Barranquilla, Bogotá, Cartagena, Santa Marta, Medellín, and Ibagué, through attention-grabbing messages that capture people's interest in applying for job opportunities. Previously, this information did not reach this number of people because Magneto was not using Telegram to share job vacancies.
 
-Por último, se dejó una documentación completa sobre el funcionamiento del flujo, credenciales,  pasos necesarios para utilizar el flujo, y parámetros sobre cómo escalar el mismo para las distintas plataformas.
+Furthermore, scalability was prioritized in the workflow, allowing it to be used in the future to send job vacancies to other platforms, such as WhatsApp, among others. In this way, Magneto can send a set of critical vacancies to the created flow, which will classify them and send them to the corresponding platform according to the specified sector and the associated groups. This eliminates the need for individuals to manually perform this action, saving time and resources.
+
+The system also implemented notification management for the sending of job vacancies mentioned above, keeping the administrator informed of both successful and failed submissions, making it functional and scalable for different platforms that may be implemented in the future.
+
+Finally, comprehensive documentation was provided on the flow's functionality, credentials, steps required to use the flow, and parameters on how to scale it for different platforms.
 
 
-
-**Imagen del flujo creado en n8n:**
-<div align = "center">
-  <img src = "https://i.imgur.com/bTF9TqI.png"/> 
+**Flow diagram created in n8n:**
+<div align="center">
+  <img src="https://i.imgur.com/bTF9TqI.png"/> 
 </div>
 
-**Imagen de envio real por parte de Magneto de una vacante laboral de manera automatizada a grupos de empleabilidad existentes con lo implementado:**
-<div align = "center">
-  <img src = "https://i.imgur.com/Uzpdv8h.png"/> 
+**Image of Magneto's actual automated job vacancy submission to existing employability groups using the implemented system:**
+<div align="center">
+  <img src="https://i.imgur.com/Uzpdv8h.png"/> 
 </div>
 
-**Imagen de base de datos con grupos de empleabilidad ofrecidos a la organización, con más de 9276 personas vinculadas:**
-<div align = "center">
-  <img src = "https://i.imgur.com/0a7eOZE.png"/> 
+**Image of the database with the employability groups offered to the organization, with more than 9,276 people enrolled:**
+<div align="center">
+  <img src="https://i.imgur.com/0a7eOZE.png"/> 
 </div>
 
 
-## Herramientas implicadas en el desarrollo
+## Tools Used in Development
 <p align="center">
   <a href="https://skillicons.dev">
     <img src="https://skillicons.dev/icons?i=python,fastapi,github,git" />
@@ -69,43 +65,47 @@ Por último, se dejó una documentación completa sobre el funcionamiento del fl
   </a>
 </p>
 
-## Instalación
-1. Agregar el flujo de n8n al workspace, para ello, se descarga el archivo JSON de [automation-employability-groups](https://github.com/kristianrpo/automation-employability-groups/blob/main/n8n/automation_employability_groups_RPA.json), y se importa dentro de un flujo en la plataforma
-2. Seguir los pasos especificados como [pre-requisitos](https://github.com/kristianrpo/automation-employability-groups/blob/main/docs/Documentation.md#pre-requisitos-para-funcionamiento) en la documentación de todo el proyecto para dejar el flujo de n8n totalmente funcional.
-3. Asegúrate de tener instalado Python en tu sistema. Puedes descargarlo desde [python.org](https://www.python.org/downloads/).
-4. Clonar el proyecto 
+## Installation
+1. Add the n8n workflow to the workspace. To do this, download the JSON file from [automation-employability-groups](https://github.com/kristianrpo/automation-employability-groups/blob/main/n8n/automation_employability_groups_RPA.json) and import it into a flow in the platform.
+2. Follow the [prerequisites](https://github.com/kristianrpo/automation-employability-groups/blob/main/docs/Documentation.md#pre-requisitos-para-funcionamiento) specified in the project documentation to ensure the n8n workflow is fully functional.
+3. Make sure Python is installed on your system. You can download it from [python.org](https://www.python.org/downloads/).
+4. Clone the project 
 ```bash
   git clone https://github.com/kristianrpo/automation-employability-groups.git
 ```
-5. Configurar el entorno virtual, navegando hasta el directorio y aplicando el comando correspondiente para el funcionamiento del mismo.
-```bash
-  cd automation-employability-groups
-  python -m venv venv 
+5. Set up the virtual environment by navigating to the directory and applying the corresponding command for its proper functioning.
+ ```bash
+   cd automation-employability-groups
+   python -m venv venv 
 ```
-6. Activar el entorno virtual creado con el comando correspondiente
+6. Activate the created virtual environment with the corresponding command.
 ```bash
   ./venv/Scripts/activate
 ```
-7. Instalar dependencias para el correcto funcionamiento del proyecto
+7. Install dependencies for the project to work properly.
 ```bash
-  pip install -r requirements.txt
+  ./venv/Scripts/activate
 ```
-8. Ejecutar la aplicacion de FastAPI
+8. Run the FastAPI application.
 ```bash
   uvicorn main:app --reload
 ```
-9. Ahora el flujo de n8n puede conectarse al endpoint para permitir el envio de vacantes laborales a la plataforma de Telegram y futuras implementaciones.
-## Uso
-A el endpoint generado por n8n, se envía un conjunto de vacantes laborales criticas a enviar a ciertas plataformas, con una serie atirbutos necesarios sobre dicha vacante, especificados en la documentación.
+9. Now, the n8n workflow can connect to the endpoint to allow the sending of job vacancies to the Telegram platform and future implementations.
 
-Posteriormente, el flujo de n8n se encargará de procesar dicha vacante y segun un sector ID asociado y una plataforma, hace la clasificacion correspondiente y el envio de los datos necesarios al endpoint en FAST API.
+## Usage
+A set of critical job vacancies to be sent to certain platforms, along with the necessary attributes for each vacancy as specified in the documentation, is sent to the endpoint generated by n8n.
 
-El endpoint de FASTAPI recibe los datos, y hace el uso de las diferentes APIS de las diferentes plataformas para hacer el envío de la vacante al grupo correcto.
+Subsequently, the n8n workflow will process the vacancy and, based on the associated sector ID and platform, it will classify the vacancy accordingly and send the necessary data to the FAST API endpoint.
 
-## Autores
-El proyecto fué realizado por : 
+The FASTAPI endpoint receives the data and utilizes the APIs of the various platforms to send the vacancy to the correct group.
+
+Here’s the translation to English in Markdown format:
+
+## Authors
+The project was created by:
 
 - Kristian Restrepo Osorio
 - Sebastian Restrepo Ortiz
 - Luisa María Álvarez García
-- Miguel Ángel Martínez García 
+- Miguel Ángel Martínez García
+
